@@ -2,129 +2,297 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Artifact 5 — Personal AI/ML Leadership Framework</title>
+  <title>Shiyana — AI/ML Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Shiyana's AI/ML portfolio with tabbed navigation: About, Skills, Artifacts, and Contact. Includes Artifact 5: AI/ML Leadership Framework with charts." />
   <style>
-    :root{--bg:#f6f8fa;--panel:#fff;--text:#1b1f23;--muted:#586069;--border:#e1e4e8;--radius:12px}
+    :root{
+      --bg:#0f1220;
+      --panel:#161a2e;
+      --panel-2:#1b2040;
+      --text:#e7e9f1;
+      --muted:#b6b9c9;
+      --border:rgba(255,255,255,.10);
+      --accent:#77e4ff;
+      --accent-2:#9a8cff;
+      --ok:#7bf4b8;
+      --radius:14px;
+      --shadow:0 12px 28px rgba(0,0,0,.35);
+    }
     *{box-sizing:border-box}
-    body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
-    .wrap{max-width:980px;margin:0 auto;padding:24px}
-    .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-top:14px}
-    header.card h1{margin:.2rem 0}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+      background:
+        radial-gradient(1200px 600px at 100% -10%, rgba(121,134,255,.22), transparent 60%),
+        radial-gradient(1000px 600px at -10% 10%, rgba(119,228,255,.18), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    .wrap{max-width:1100px;margin:0 auto;padding:26px 18px 80px}
+    header.hero{
+      border:1px solid var(--border);
+      border-radius: calc(var(--radius) + 4px);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
+      box-shadow: var(--shadow);
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+    }
+    header.hero:before{
+      content:""; position:absolute; inset:-35% -10% auto auto; height:320px; width:320px;
+      filter: blur(70px);
+      background: conic-gradient(from 180deg at 50% 50%, var(--accent), var(--accent-2), var(--ok));
+      opacity:.18; transform: rotate(20deg);
+    }
+    h1{margin:.2rem 0 .6rem; font-size: clamp(1.6rem, 1.2rem + 2.2vw, 2.6rem)}
+    p.lede{color:var(--muted); max-width:70ch}
+    /* Tabs */
+    .tabs{margin-top:14px; display:flex; flex-wrap:wrap; gap:8px}
+    .tab-btn{
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, var(--panel), var(--panel-2));
+      color:var(--text);
+      padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:650;
+      transition:.15s transform, .15s border-color;
+    }
+    .tab-btn[aria-selected="true"]{
+      outline:2px solid rgba(255,255,255,.20); transform: translateY(-1px);
+    }
+    main.panel{
+      margin-top:16px;
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+    }
+    section[hidden]{display:none !important}
+    h2{margin:6px 0 4px; font-size:1.35rem}
+    h3{margin:12px 0 6px; font-size:1.05rem; color:var(--muted)}
+    .grid{display:grid; gap:16px}
+    .grid-2{grid-template-columns: 1fr}
+    @media(min-width:900px){ .grid-2{grid-template-columns: 1fr 1fr} }
+    .card{
+      border:1px solid var(--border);
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+      padding:14px;
+    }
+    figure{margin:10px 0}
+    figure img{width:100%; height:auto; border:1px solid var(--border); border-radius:12px}
+    figcaption{color:var(--muted); font-size:.95rem; margin-top:6px}
+    ul.inline{display:flex; flex-wrap:wrap; gap:8px; padding-left:0; list-style:none}
+    .pill{border:1px solid var(--border); border-radius:999px; padding:6px 10px; background:linear-gradient(180deg, var(--panel), var(--panel-2))}
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .cta{display:inline-flex; align-items:center; gap:8px; margin-top:10px}
+    .btn{
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, var(--panel), var(--panel-2));
+      color:var(--text);
+      padding:9px 12px; border-radius:10px; text-decoration:none; font-weight:600;
+    }
     .muted{color:var(--muted)}
-    figure{margin:14px 0}
-    figure img{width:100%;height:auto;border:1px solid var(--border);border-radius:10px}
-    figcaption{color:var(--muted);font-size:.95rem;margin-top:6px}
-    .grid{display:grid;grid-template-columns:1fr;gap:12px}
-    @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
-    pre.block{white-space:pre-wrap;background:#f6f8fa;border:1px solid var(--border);border-radius:10px;padding:12px}
-    nav{margin:0 0 8px}
-    nav a{color:#0366d6;text-decoration:none}
+    footer{margin-top:28px; color:var(--muted); font-size:.95rem; text-align:center}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <nav><a href="./index.html">← Back to Home</a></nav>
-    <header class="card">
-      <h1>Artifact 5: Personal AI/ML Leadership Framework</h1>
-      <p class="muted">Ethical, practical, and people-centered change</p>
+    <header class="hero">
+      <h1>Shiyana — AI/ML Portfolio</h1>
+      <p class="lede">
+        A curated set of projects and a leadership framework demonstrating AI/ML competencies,
+        ethical governance, and stakeholder-focused delivery.
+      </p>
+      <nav class="tabs" role="tablist" aria-label="Portfolio tabs">
+        <button class="tab-btn" role="tab" data-tab="about" aria-selected="true">About</button>
+        <button class="tab-btn" role="tab" data-tab="skills">Skills / Toolbox</button>
+        <button class="tab-btn" role="tab" data-tab="artifacts">Artifacts</button>
+        <button class="tab-btn" role="tab" data-tab="artifact5">Artifact 5</button>
+        <button class="tab-btn" role="tab" data-tab="contact">Contact</button>
+      </nav>
     </header>
 
-    <section class="card">
-      <h2>Executive Summary (Non-Technical)</h2>
-      <p>This framework summarizes how I lead AI/ML work with clarity, ethics, and measurable results. It integrates a mission statement, core values, concrete objectives, and action plans. The goals are to deliver trustworthy AI outcomes, communicate clearly with stakeholders, and build a culture of iterative learning and responsible innovation.</p>
-    </section>
+    <main class="panel">
+      <!-- ABOUT -->
+      <section id="about" role="tabpanel">
+        <h2>About</h2>
+        <p>
+          I design and deliver AI/ML solutions that are <em>useful, usable, and ethical</em>.
+          My work blends data analysis, model development, and change leadership —
+          ensuring models are governed, monitored, and clearly communicated to both technical and non-technical audiences.
+        </p>
+        <div class="card">
+          <h3>Highlights</h3>
+          <ul class="inline">
+            <li class="pill">End-to-End ML Lifecycle</li>
+            <li class="pill">NLP & Forecasting</li>
+            <li class="pill">Clustering & Segmentation</li>
+            <li class="pill">Evaluation & Monitoring</li>
+            <li class="pill">Ethical AI Governance</li>
+          </ul>
+          <div class="cta">
+            <!-- Replace with your resume/github links -->
+            <a class="btn" href="#" title="Resume">Download Resume (PDF)</a>
+            <a class="btn" href="#" title="GitHub">GitHub</a>
+            <a class="btn" href="#" title="LinkedIn">LinkedIn</a>
+          </div>
+        </div>
+      </section>
 
-    <section class="card">
-      <h2>Technical Overview (Technical Audience)</h2>
-      <p>The framework operationalizes AI leadership across the model lifecycle: problem framing, data governance, model evaluation/monitoring, risk controls, and change enablement. It specifies role clarity (product, data, MLOps, compliance), decision checkpoints (model cards, PR-AUC/recall thresholds, risk reviews), and continuous improvement (post-deployment drift checks, 360 feedback, retrospectives).</p>
-    </section>
+      <!-- SKILLS -->
+      <section id="skills" role="tabpanel" hidden>
+        <h2>Skills / Toolbox</h2>
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>Languages & Libraries</h3>
+            <ul class="inline">
+              <li class="pill">Python</li><li class="pill">Pandas</li><li class="pill">NumPy</li>
+              <li class="pill">scikit-learn</li><li class="pill">TensorFlow/Keras</li>
+              <li class="pill">Matplotlib</li><li class="pill">SQL</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Practices</h3>
+            <ul class="inline">
+              <li class="pill">EDA</li><li class="pill">Feature Engineering</li>
+              <li class="pill">Model Cards</li><li class="pill">Bias/Fairness Checks</li>
+              <li class="pill">Drift Monitoring</li><li class="pill">Experiment Tracking</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-    <section class="card">
-      <h2>Context & Problem</h2>
-      <p>AI success often fails not for technical reasons, but due to unclear goals, weak governance, and limited stakeholder alignment. This framework addresses that gap by defining a repeatable approach to leading AI/ML initiatives that are useful, usable, and ethical.</p>
-    </section>
+      <!-- ARTIFACTS OVERVIEW -->
+      <section id="artifacts" role="tabpanel" hidden>
+        <h2>Artifacts</h2>
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>Artifact 1 — Predictive Analytics</h3>
+            <p class="muted">Regression project: feature engineering, R²/MAE evaluation, business impact statement, GitHub code.</p>
+            <a class="btn" href="#" title="Artifact 1">View</a>
+          </div>
+          <div class="card">
+            <h3>Artifact 2 — NLP Sentiment Analysis</h3>
+            <p class="muted">Pipeline for text classification; Precision/Recall/F1; product insight “so what?” summary; repo link.</p>
+            <a class="btn" href="#" title="Artifact 2">View</a>
+          </div>
+          <div class="card">
+            <h3>Artifact 3 — Time Series Forecasting</h3>
+            <p class="muted">Forecast accuracy (RMSE/MAPE); scenario planning visuals; decision support narrative.</p>
+            <a class="btn" href="#" title="Artifact 3">View</a>
+          </div>
+          <div class="card">
+            <h3>Artifact 4 — Customer Segmentation</h3>
+            <p class="muted">Clustering with Silhouette score; segment personas; targeted retention strategy.</p>
+            <a class="btn" href="#" title="Artifact 4">View</a>
+          </div>
+          <div class="card">
+            <h3>Artifact 5 — Leadership Framework</h3>
+            <p class="muted">Ethical, practical, and people-centered change with governance, roadmap, and RACI.</p>
+            <a class="btn" href="#artifact5" data-jump="artifact5" title="Artifact 5">Open</a>
+          </div>
+        </div>
+      </section>
 
-    <section class="card">
-      <h2>Approach</h2>
-      <pre class="block">1) Mission: Deliver AI that solves real problems while honoring transparency, fairness, and stewardship.
-2) Core Values: Integrity, responsibility, collaboration, lifelong learning, and service.
-3) Objectives (SMART):
-   • Establish an ethical AI checklist and model card template across projects (quarterly adoption ≥ 80%).
-   • Improve stakeholder comprehension via executive briefs for every project (+30% comprehension by survey).
-   • Build a feedback loop for deployed models (drift alerts, recalibration cadence monthly/quarterly).
-4) Action Plans:
-   • Short-term (0–6 mo): finalize templates, run brown-bag sessions, enable metric dashboards.
-   • Mid-term  (6–12 mo): run 2–3 cross-functional pilots; integrate approvals into SDLC.
-   • Long-term (12+ mo): formalize governance (review boards), mentorship pipeline, continuous training.</pre>
-    </section>
+      <!-- ARTIFACT 5 DETAIL -->
+      <section id="artifact5" role="tabpanel" hidden>
+        <h2>Artifact 5 — Personal AI/ML Leadership Framework</h2>
+        <p class="muted">
+          Executive summary: a practical leadership framework for delivering trustworthy AI:
+          clear mission and values, SMART objectives, action plans, governance, and monitoring.
+        </p>
 
-    <section class="card">
-      <h2>Audience Versions (Customization)</h2>
-      <pre class="block">• Executives / Non-Technical: business impact, risk posture, ROI, timeline, change plan.
-• Technical Leads / Data Scientists: data quality rules, metrics (PR-AUC, recall@threshold), monitoring & drift actions, rollout guardrails.
-• Risk/Compliance: documentation standards, fairness checks, human-in-the-loop controls, incident response.</pre>
-    </section>
+        <div class="card">
+          <h3>Executive Summary (Non-Technical)</h3>
+          <p>
+            This framework integrates mission, values, objectives, and action plans to guide responsible AI delivery.
+            It emphasizes transparency, fairness, and measurable outcomes, and it tailors communication for executives,
+            technical leads, and risk/compliance partners.
+          </p>
+        </div>
 
-    <section class="card">
-      <h2>Competencies Demonstrated</h2>
-      <pre class="block">• Change leadership & stakeholder alignment
-• Ethical AI governance & documentation (model cards, risk checklists)
-• Communication across technical & non-technical audiences
-• Continuous improvement (metrics, feedback loops, retrospectives)</pre>
-    </section>
+        <div class="grid grid-2">
+          <figure>
+            <img src="artifact5_radar_competencies.png" alt="Leadership competency radar">
+            <figcaption><strong>Figure 1.</strong> Self-assessment across six leadership competencies.</figcaption>
+          </figure>
+          <figure>
+            <img src="artifact5_roadmap_gantt.png" alt="Leadership roadmap Gantt">
+            <figcaption><strong>Figure 2.</strong> Short-, mid-, and long-term actions (12–18 months).</figcaption>
+          </figure>
+          <figure>
+            <img src="artifact5_governance_lifecycle.png" alt="AI/ML governance lifecycle">
+            <figcaption><strong>Figure 3.</strong> Governance from framing → deployment → monitoring → iterate.</figcaption>
+          </figure>
+          <figure>
+            <img src="artifact5_raci_matrix.png" alt="RACI matrix">
+            <figcaption><strong>Figure 4.</strong> Roles across key activities (R/A/C/I).</figcaption>
+          </figure>
+        </div>
 
-    <section class="card">
-      <h2>Outcome & Evidence</h2>
-      <pre class="block">• Standardized model card & ethical checklist now used across artifacts.
-• Clear executive brief format added to each project page.
-• Portfolio now includes Metrics & Evaluation sections and GitHub code links for transparency.</pre>
-    </section>
+        <div class="card">
+          <h3>Approach & Success Metrics</h3>
+          <ul>
+            <li><strong>Objectives:</strong> adopt model cards & ethical checklists (≥80% projects); exec briefs (+30% comprehension); drift alerts & recalibration cadence.</li>
+            <li><strong>Success:</strong> governance adoption, comprehension survey uplift, active monitoring logs, shorter time-to-insight.</li>
+          </ul>
+          <p class="muted">Based on Workshop 5 feedback, I added Business Impact paragraphs, Metrics & Evaluation blocks, GitHub links, and a Skills Toolbox panel across the portfolio.</p>
+        </div>
+      </section>
 
-    <section class="card">
-      <h2>Metrics (Success Criteria)</h2>
-      <pre class="block">• Adoption of governance artifacts (≥ 80% of projects)
-• Post-read stakeholder comprehension score (+30% from baseline)
-• Model monitoring in place (drift detection + action log)
-• Lead time to insight reduced via clearer scoping & iteration</pre>
-    </section>
+      <!-- CONTACT -->
+      <section id="contact" role="tabpanel" hidden>
+        <h2>Contact</h2>
+        <p>Interested in collaborating or reviewing code? Reach me here:</p>
+        <ul>
+          <!-- Replace with your real links -->
+          <li>Email: <a href="mailto:you@example.com">you@example.com</a></li>
+          <li>GitHub: <a href="#" target="_blank" rel="noopener">github.com/yourprofile</a></li>
+          <li>LinkedIn: <a href="#" target="_blank" rel="noopener">linkedin.com/in/yourprofile</a></li>
+        </ul>
+      </section>
+    </main>
 
-    <section class="card">
-      <h2>What I Changed Based on Workshop 5 Feedback</h2>
-      <pre class="block">1) Clarity & Business Impact — Each artifact ends with a “Business Impact / So What?” paragraph.
-2) Metrics & Evaluation — Standard metrics blocks per artifact (F1, R², Silhouette, RMSE).
-3) Code Transparency — GitHub repository links added per artifact.
-4) Skills “Toolbox” — Top-level Technical Skills panel near the bio.
-5) Cohesive Styling — Standardized headings, figure captions, and CTAs.</pre>
-    </section>
-
-    <section class="card grid">
-      <div>
-        <figure>
-          <img src="assets/artifact5/artifact5_radar_competencies.png" alt="Leadership competency radar chart">
-          <figcaption><strong>Figure 1.</strong> Self-assessment across six leadership competencies.</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/artifact5/artifact5_roadmap_gantt.png" alt="Leadership roadmap Gantt">
-          <figcaption><strong>Figure 2.</strong> Short-, mid-, and long-term actions across 12–18 months.</figcaption>
-        </figure>
-      </div>
-      <div>
-        <figure>
-          <img src="assets/artifact5/artifact5_governance_lifecycle.png" alt="AI/ML governance lifecycle diagram">
-          <figcaption><strong>Figure 3.</strong> Governance stages from problem framing to review &amp; iterate.</figcaption>
-        </figure>
-        <figure>
-          <img src="assets/artifact5/artifact5_raci_matrix.png" alt="RACI matrix for roles and activities">
-          <figcaption><strong>Figure 4.</strong> RACI assignments across key activities.</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>How This Artifact Completes the Portfolio</h2>
-      <p>The first four artifacts demonstrate technical breadth (predictive analytics, NLP, forecasting, clustering). This fifth artifact shows how I lead AI work—aligning teams, ensuring ethics, communicating across audiences, and driving sustainable outcomes. Together, the five artifacts represent my best work in AI/ML.</p>
-    </section>
+    <footer>© <span id="y"></span> Shiyana • Built with plain HTML/CSS/JS</footer>
   </div>
+
+  <script>
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Tabs logic (hash-aware)
+    const tabs = Array.from(document.querySelectorAll('.tab-btn'));
+    const panes = Array.from(document.querySelectorAll('main [role="tabpanel"]'));
+
+    function showTab(id){
+      panes.forEach(p => p.hidden = (p.id !== id));
+      tabs.forEach(b => b.setAttribute('aria-selected', b.dataset.tab === id));
+      // update hash without jumping
+      if(location.hash.replace('#','') !== id){
+        history.replaceState(null, '', '#' + id);
+      }
+    }
+
+    // Click handlers
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => showTab(btn.dataset.tab));
+    });
+
+    // Links with data-jump
+    document.querySelectorAll('[data-jump]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        showTab(a.getAttribute('data-jump'));
+        window.scrollTo({ top: document.querySelector('header.hero').offsetTop, behavior:'smooth' });
+      });
+    });
+
+    // On load — honor hash
+    const start = location.hash ? location.hash.replace('#','') : 'about';
+    showTab(start);
+  </script>
 </body>
 </html>
