@@ -4,61 +4,87 @@
   <meta charset="utf-8" />
   <title>Artifact 5 — Personal AI/ML Leadership Framework</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Artifact 5: A light-blue, single-page portfolio describing an AI/ML leadership framework with governance, roadmap, RACI, metrics, and inline diagrams." />
+  <meta name="description" content="Tabbed, light-blue single-page portfolio focusing on Artifact 5: AI/ML Leadership Framework — overview, visuals, playbook, metrics, diagrams, and FAQ." />
   <style>
     :root{
       /* LIGHT BLUE THEME */
-      --bg:#eaf4ff;          /* page background */
-      --panel:#ffffff;       /* card panels */
-      --panel-2:#f5faff;     /* subtle alt panel */
-      --text:#17324d;        /* main text (dark blue-gray) */
-      --muted:#4c6a88;       /* muted text */
-      --border:#c9def5;      /* borders */
-      --accent:#2276e3;      /* links/buttons */
-      --accent-2:#2aa5ff;    /* secondary accent */
+      --bg:#eaf4ff;
+      --panel:#ffffff;
+      --panel-2:#f5faff;
+      --text:#17324d;
+      --muted:#4c6a88;
+      --border:#c9def5;
+      --accent:#2276e3;
+      --accent-2:#2aa5ff;
       --radius:14px;
       --shadow:0 8px 22px rgba(16,58,110,.08);
     }
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-family:-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       background:
-        radial-gradient(1200px 600px at -10% -10%, rgba(34,118,227,.10), transparent 55%),
-        radial-gradient(900px 500px at 110% 0%, rgba(42,165,255,.10), transparent 55%),
+        radial-gradient(1100px 520px at -10% -10%, rgba(34,118,227,.10), transparent 55%),
+        radial-gradient(900px 480px at 110% 0%, rgba(42,165,255,.10), transparent 55%),
         var(--bg);
       color:var(--text);
       line-height:1.6;
     }
-    .wrap{max-width:1000px;margin:0 auto;padding:28px 18px 80px}
+    .wrap{max-width:1020px;margin:0 auto;padding:28px 18px 80px}
     header.hero{
       border:1px solid var(--border);
       border-radius: var(--radius);
       background: linear-gradient(180deg, var(--panel), var(--panel-2));
       box-shadow: var(--shadow);
-      padding:24px;
-      margin-bottom:18px;
+      padding:22px;
+      margin-bottom:16px;
     }
-    h1{margin:.1rem 0 .6rem; font-size:clamp(1.9rem,1.2rem + 2.2vw,2.6rem)}
-    p.lede{color:var(--muted); max-width:74ch}
+    h1{margin:.1rem 0 .5rem; font-size:clamp(1.9rem,1.2rem + 2vw,2.6rem)}
+    p.lede{color:var(--muted); max-width:76ch}
     .badge{
       display:inline-block; padding:6px 10px; border-radius:999px;
       background:#d8ebff; color:#0f4b9b; border:1px solid var(--border);
       font-weight:600; font-size:.9rem; margin-right:8px;
     }
 
+    /* Tabs */
+    .tabs{
+      margin-top:14px; display:flex; flex-wrap:wrap; gap:8px;
+    }
+    .tab-btn{
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, var(--panel), var(--panel-2));
+      color:var(--text);
+      padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:650;
+      transition:.15s transform,.15s border-color,.15s background;
+    }
+    .tab-btn[aria-selected="true"]{
+      outline:2px solid rgba(34,118,227,.25);
+      transform: translateY(-1px);
+    }
+
+    main.panel{
+      margin-top:14px;
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+    }
+    section[hidden]{display:none!important}
+
     section.card{
       background:var(--panel);
       border:1px solid var(--border);
       border-radius:var(--radius);
-      box-shadow:var(--shadow);
+      box-shadow: var(--shadow);
       padding:18px;
       margin-top:18px;
     }
     h2{margin-top:0; font-size:1.45rem}
     h3{margin:12px 0 6px; font-size:1.1rem; color:var(--muted)}
     .muted{color:var(--muted)}
-    figure{margin:16px 0}
+    figure{margin:14px 0}
     figure img{width:100%; height:auto; border:1px solid var(--border); border-radius:var(--radius)}
     figcaption{color:var(--muted); font-size:.95rem; margin-top:6px}
     .grid{display:grid; gap:16px}
@@ -73,13 +99,12 @@
     a:hover{text-decoration:underline}
     footer{margin-top:30px; text-align:center; color:var(--muted); font-size:.95rem}
 
-    /* Simple table look */
     table{border-collapse:collapse; width:100%; background:white; border:1px solid var(--border); border-radius:10px; overflow:hidden}
     th, td{border-bottom:1px solid var(--border); padding:10px; text-align:left}
     th{background:#eef6ff; color:#0f4b9b}
 
-    /* SVG container helper */
     .svg-wrap{border:1px solid var(--border); border-radius:12px; background:#fff; padding:10px}
+    .kbd{border:1px solid var(--border); background:#eef6ff; padding:2px 6px; border-radius:6px}
   </style>
 </head>
 <body>
@@ -88,286 +113,331 @@
       <span class="badge">Artifact 5</span>
       <h1>Personal AI/ML Leadership Framework</h1>
       <p class="lede">
-        A single, practical framework that unifies <strong>mission</strong>, <strong>values</strong>, <strong>SMART objectives</strong>,
-        and <strong>governance</strong> to lead AI/ML initiatives responsibly. This page presents concise explanations, diagrams,
-        and success metrics suitable for both executives and technical teams.
+        A practical framework to lead AI/ML initiatives with <strong>clarity</strong>, <strong>ethics</strong>, and
+        <strong>measurable outcomes</strong>. Explore the overview, visuals, implementation playbook, metrics, diagrams, and FAQ using the tabs below.
       </p>
+
+      <!-- Tab buttons -->
+      <nav class="tabs" role="tablist" aria-label="Artifact 5 tabs">
+        <button class="tab-btn" role="tab" data-tab="overview" aria-selected="true">Overview</button>
+        <button class="tab-btn" role="tab" data-tab="visuals">Visuals</button>
+        <button class="tab-btn" role="tab" data-tab="playbook">Playbook</button>
+        <button class="tab-btn" role="tab" data-tab="metrics">Metrics</button>
+        <button class="tab-btn" role="tab" data-tab="diagrams">Diagrams</button>
+        <button class="tab-btn" role="tab" data-tab="faq">FAQ</button>
+        <button class="tab-btn" role="tab" data-tab="contact">Contact</button>
+      </nav>
     </header>
 
-    <!-- EXECUTIVE SUMMARY -->
-    <section class="card">
-      <h2>Executive Summary</h2>
-      <p>
-        This framework translates leadership principles into concrete practices across the AI lifecycle:
-        <em>problem framing → data governance → modeling & validation → deployment → monitoring & iteration</em>.
-        It ensures decisions are <strong>ethical</strong>, <strong>explainable</strong>, and <strong>impact-oriented</strong>,
-        with clear checkpoints and role accountability. The outcome is faster delivery of trustworthy models,
-        reduced risk, and better stakeholder alignment.
-      </p>
-      <div class="callout">
-        <strong>Audience fit:</strong> executives get impact & risk clarity; technical teams get metrics, controls, and process;
-        compliance gets documentation and review cadence.
-      </div>
-    </section>
+    <main class="panel">
+      <!-- OVERVIEW -->
+      <section id="overview" role="tabpanel">
+        <section class="card">
+          <h2>Executive Summary</h2>
+          <p>
+            The framework turns leadership principles into day-to-day practices across the AI lifecycle:
+            <em>framing → data governance → modeling & validation → deployment → monitoring → iteration</em>.
+            It defines checkpoints, artifacts (e.g., model cards), owners (RACI), and success metrics so teams move quickly
+            while remaining safe, fair, and aligned to business value.
+          </p>
+          <div class="callout">
+            <strong>Audience fit:</strong> Executives see impact & risk posture; technical teams get metrics & controls; compliance gets documentation & cadence.
+          </div>
+        </section>
 
-    <!-- BACKGROUND / RATIONALE -->
-    <section class="card">
-      <h2>Background & Rationale</h2>
-      <p>
-        AI projects often fail due to unclear goals, poor data quality, and missing governance—not because of algorithms alone.
-        This framework addresses those gaps with a repeatable approach: <strong>define value upfront, measure properly, and guard against risk</strong>.
-      </p>
-      <div class="grid grid-3">
-        <div>
-          <h3>Mission</h3>
-          <p>Deliver AI that solves real problems while honoring transparency, fairness, and stewardship.</p>
-        </div>
-        <div>
-          <h3>Core Values</h3>
+        <section class="card">
+          <h2>Background & Rationale</h2>
+          <div class="grid grid-3">
+            <div>
+              <h3>Mission</h3>
+              <p>Deliver AI that solves real problems while honoring transparency, fairness, and stewardship.</p>
+            </div>
+            <div>
+              <h3>Core Values</h3>
+              <ul>
+                <li>Integrity & Responsibility</li>
+                <li>Collaboration & Service</li>
+                <li>Lifelong Learning</li>
+              </ul>
+            </div>
+            <div>
+              <h3>SMART Objectives</h3>
+              <ul>
+                <li>Adopt ethical checklist & model cards (≥80% projects/quarter).</li>
+                <li>+30% stakeholder comprehension after executive briefs.</li>
+                <li>Active drift alerts & retrain cadence (monthly/quarterly).</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- VISUALS -->
+      <section id="visuals" role="tabpanel" hidden>
+        <section class="card">
+          <h2>Core Visuals</h2>
+          <div class="grid grid-2">
+            <figure>
+              <img src="artifact5_radar_competencies.png" alt="Leadership competency radar">
+              <figcaption><strong>Figure 1.</strong> Self-assessment across six leadership competencies.</figcaption>
+            </figure>
+            <figure>
+              <img src="artifact5_roadmap_gantt.png" alt="Leadership roadmap (Gantt)">
+              <figcaption><strong>Figure 2.</strong> Roadmap of short-, mid-, and long-term actions (12–18 months).</figcaption>
+            </figure>
+          </div>
+          <div class="grid grid-2">
+            <figure>
+              <img src="artifact5_governance_lifecycle.png" alt="Governance lifecycle">
+              <figcaption><strong>Figure 3.</strong> Lifecycle from framing → deployment → monitoring → iteration.</figcaption>
+            </figure>
+            <figure>
+              <img src="artifact5_raci_matrix.png" alt="RACI matrix">
+              <figcaption><strong>Figure 4.</strong> Roles and responsibilities across key activities (R/A/C/I).</figcaption>
+            </figure>
+          </div>
+        </section>
+      </section>
+
+      <!-- PLAYBOOK -->
+      <section id="playbook" role="tabpanel" hidden>
+        <section class="card">
+          <h2>Implementation Playbook</h2>
+          <div class="grid grid-2">
+            <div>
+              <h3>Short-Term (0–6 months)</h3>
+              <ul>
+                <li>Publish <span class="kbd">model card</span> & <span class="kbd">ethical checklist</span> templates.</li>
+                <li>Brown-bag sessions; share completed examples.</li>
+                <li>Dashboards for evaluation & drift signals.</li>
+              </ul>
+              <h3>Risk Controls</h3>
+              <ul>
+                <li>Data quality SLOs & lineage records.</li>
+                <li>Operating thresholds tied to user harm scenarios.</li>
+                <li>Human-in-the-loop for critical decisions.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Mid-Term (6–12 months)</h3>
+              <ul>
+                <li>Run 2–3 cross-functional pilots end-to-end.</li>
+                <li>Integrate gates into SDLC (PR templates, CI checks).</li>
+                <li>Formalize model incident response playbook.</li>
+              </ul>
+              <h3>Long-Term (12+ months)</h3>
+              <ul>
+                <li>Model Review Board for high-impact systems.</li>
+                <li>Mentorship pipeline & community of practice.</li>
+                <li>Annual refresh of templates & training.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- METRICS -->
+      <section id="metrics" role="tabpanel" hidden>
+        <section class="card">
+          <h2>Success Metrics & Evaluation</h2>
+          <table>
+            <thead>
+              <tr><th>Area</th><th>Measure</th><th>Target</th><th>Evidence</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Governance Adoption</td>
+                <td>% projects with model card + checklist</td>
+                <td>≥ 80% / quarter</td>
+                <td>Repository of signed cards; audit list</td>
+              </tr>
+              <tr>
+                <td>Stakeholder Clarity</td>
+                <td>Executive brief comprehension (survey)</td>
+                <td>+30% vs baseline</td>
+                <td>Pre/post survey results</td>
+              </tr>
+              <tr>
+                <td>Model Reliability</td>
+                <td>Drift alerts acknowledged & acted</td>
+                <td>100% triaged; MTTR ↓</td>
+                <td>Monitoring logs; postmortems</td>
+              </tr>
+              <tr>
+                <td>Delivery Efficiency</td>
+                <td>Lead time to insight</td>
+                <td>Month-over-month decrease</td>
+                <td>Project timeline tracker</td>
+              </tr>
+            </tbody>
+          </table>
+          <h3>Standard Evaluation Blocks (per project)</h3>
           <ul>
-            <li>Integrity & Responsibility</li>
-            <li>Collaboration & Service</li>
-            <li>Lifelong Learning</li>
+            <li><strong>Classification:</strong> Precision, Recall, F1, AUC; fairness slices.</li>
+            <li><strong>Regression:</strong> R², MAE/MAPE; residual diagnostics.</li>
+            <li><strong>Clustering:</strong> Silhouette score; business persona mapping.</li>
+            <li><strong>Forecasting:</strong> RMSE/MAPE; scenario stress tests.</li>
           </ul>
-        </div>
-        <div>
-          <h3>SMART Objectives</h3>
+        </section>
+      </section>
+
+      <!-- DIAGRAMS (INLINE SVG) -->
+      <section id="diagrams" role="tabpanel" hidden>
+        <section class="card">
+          <h2>Decision Checkpoints & Gates</h2>
+          <p class="muted">Lightweight, evidence-based gates with one-page artifacts keep velocity high and risks controlled.</p>
+          <div class="svg-wrap">
+            <!-- Flow diagram -->
+            <svg viewBox="0 0 880 240" width="100%" height="auto" aria-label="Decision checkpoints">
+              <defs>
+                <linearGradient id="b" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#d8ebff"/>
+                  <stop offset="100%" stop-color="#f5faff"/>
+                </linearGradient>
+                <style>
+                  .box{fill:url(#b);stroke:#c9def5;stroke-width:1.2}
+                  .txt{font: 14px -apple-system, Segoe UI, Roboto, Helvetica, Arial; fill:#17324d}
+                  .sub{font: 12px -apple-system, Segoe UI, Roboto, Helvetica, Arial; fill:#4c6a88}
+                  .arrow{stroke:#2276e3;stroke-width:2;marker-end:url(#m)}
+                </style>
+                <marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#2276e3"/>
+                </marker>
+              </defs>
+
+              <rect class="box" x="20"  y="40" width="160" height="90" rx="10"/>
+              <text class="txt" x="100" y="72" text-anchor="middle">Frame</text>
+              <text class="sub" x="100" y="94" text-anchor="middle">Problem + KPI</text>
+
+              <rect class="box" x="210" y="40" width="180" height="90" rx="10"/>
+              <text class="txt" x="300" y="72" text-anchor="middle">Data & Quality</text>
+              <text class="sub" x="300" y="94" text-anchor="middle">Lineage • Bias • Gaps</text>
+
+              <rect class="box" x="420" y="40" width="160" height="90" rx="10"/>
+              <text class="txt" x="500" y="72" text-anchor="middle">Model</text>
+              <text class="sub" x="500" y="94" text-anchor="middle">Eval & Thresholds</text>
+
+              <rect class="box" x="610" y="40" width="120" height="90" rx="10"/>
+              <text class="txt" x="670" y="72" text-anchor="middle">Deploy</text>
+              <text class="sub" x="670" y="94" text-anchor="middle">Rollout Plan</text>
+
+              <rect class="box" x="760" y="40" width="100" height="90" rx="10"/>
+              <text class="txt" x="810" y="72" text-anchor="middle">Monitor</text>
+              <text class="sub" x="810" y="94" text-anchor="middle">Drift • Incidents</text>
+
+              <line class="arrow" x1="180" y1="85" x2="210" y2="85"/>
+              <line class="arrow" x1="390" y1="85" x2="420" y2="85"/>
+              <line class="arrow" x1="580" y1="85" x2="610" y2="85"/>
+              <line class="arrow" x1="730" y1="85" x2="760" y2="85"/>
+            </svg>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Model Card (One-Page Skeleton)</h2>
+          <p class="muted">Fill during development, finalize at deployment, and review post-launch for accountability.</p>
+          <div class="svg-wrap">
+            <svg viewBox="0 0 860 420" width="100%" height="auto" aria-label="Model card layout">
+              <style>
+                .box{fill:#ffffff;stroke:#c9def5;stroke-width:1.2}
+                .head{fill:#eef6ff;stroke:#c9def5;stroke-width:1.2}
+                .title{font:16px Segoe UI, Roboto, Helvetica, Arial; fill:#0f4b9b; font-weight:700}
+                .lbl{font:13px Segoe UI, Roboto, Helvetica, Arial; fill:#17324d}
+                .mut{font:12px Segoe UI, Roboto, Helvetica, Arial; fill:#4c6a88}
+              </style>
+              <rect class="head" x="20" y="20" width="820" height="50" rx="10"/>
+              <text class="title" x="30" y="50">Model Card — Project / Version / Date</text>
+
+              <rect class="box" x="20" y="90" width="530" height="80" rx="10"/>
+              <text class="lbl" x="30" y="115">Intended Use</text>
+              <text class="mut" x="30" y="135">Who, what decision, expected benefit, boundaries.</text>
+
+              <rect class="box" x="570" y="90" width="270" height="80" rx="10"/>
+              <text class="lbl" x="580" y="115">Data</text>
+              <text class="mut" x="580" y="135">Source, sampling, known gaps, lineage.</text>
+
+              <rect class="box" x="20" y="190" width="380" height="90" rx="10"/>
+              <text class="lbl" x="30" y="215">Performance</text>
+              <text class="mut" x="30" y="235">Metric(s), threshold(s), stress tests.</text>
+
+              <rect class="box" x="420" y="190" width="420" height="90" rx="10"/>
+              <text class="lbl" x="430" y="215">Fairness & Risk</text>
+              <text class="mut" x="430" y="235">Bias checks, misuse, human-in-the-loop.</text>
+
+              <rect class="box" x="20" y="300" width="550" height="90" rx="10"/>
+              <text class="lbl" x="30" y="325">Monitoring</text>
+              <text class="mut" x="30" y="345">Drift signals, alerting, retrain cadence, incident log.</text>
+
+              <rect class="box" x="590" y="300" width="250" height="90" rx="10"/>
+              <text class="lbl" x="600" y="325">Contacts</text>
+              <text class="mut" x="600" y="345">Owners, approvers, date last reviewed.</text>
+            </svg>
+          </div>
+        </section>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" role="tabpanel" hidden>
+        <section class="card">
+          <h2>FAQ</h2>
+          <h3>How is this different from generic project management?</h3>
+          <p>It’s tailored to <em>AI risk and evidence</em>: model cards, drift monitoring, fairness checks, and explicit operating thresholds.</p>
+          <h3>Will the gates slow teams down?</h3>
+          <p>Gates are brief (30-minute reviews) with one-page artifacts. They reduce rework and speed approvals.</p>
+          <h3>What if data quality is uncertain?</h3>
+          <p>Use lineage, sampling audits, and data SLOs. Unknowns become tracked risks with remediation owners and due dates.</p>
+          <h3>How do we socialize this?</h3>
+          <p>Start with two pilots, share wins, and embed gates into existing SDLC tools (PR templates, CI checks).</p>
+        </section>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" role="tabpanel" hidden>
+        <section class="card">
+          <h2>Contact</h2>
+          <p>Questions or feedback? Get in touch:</p>
           <ul>
-            <li>Adopt ethical checklist & model cards (≥80% projects/quarter).</li>
-            <li>+30% stakeholder comprehension (survey after executive briefs).</li>
-            <li>Active drift alerts & recalibration cadence (monthly/quarterly).</li>
+            <li>Email: <a href="mailto:you@example.com">you@example.com</a></li>
+            <li>GitHub: <a href="#" target="_blank" rel="noopener">github.com/yourprofile</a></li>
+            <li>LinkedIn: <a href="#" target="_blank" rel="noopener">linkedin.com/in/yourprofile</a></li>
           </ul>
-        </div>
-      </div>
-    </section>
+        </section>
+      </section>
+    </main>
 
-    <!-- VISUALS: PNGs YOU ALREADY UPLOADED -->
-    <section class="card">
-      <h2>Core Visuals</h2>
-      <div class="grid grid-2">
-        <figure>
-          <img src="artifact5_radar_competencies.png" alt="Leadership competency radar">
-          <figcaption><strong>Figure 1.</strong> Self-assessment across six leadership competencies.</figcaption>
-        </figure>
-        <figure>
-          <img src="artifact5_roadmap_gantt.png" alt="Leadership roadmap (Gantt)">
-          <figcaption><strong>Figure 2.</strong> Roadmap of short-, mid-, and long-term actions (12–18 months).</figcaption>
-        </figure>
-      </div>
-      <div class="grid grid-2">
-        <figure>
-          <img src="artifact5_governance_lifecycle.png" alt="Governance lifecycle">
-          <figcaption><strong>Figure 3.</strong> Lifecycle from framing → deployment → monitoring → iteration.</figcaption>
-        </figure>
-        <figure>
-          <img src="artifact5_raci_matrix.png" alt="RACI matrix">
-          <figcaption><strong>Figure 4.</strong> Roles and responsibilities across key activities (R/A/C/I).</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- EXTRA DIAGRAM 1: DECISION CHECKPOINTS (INLINE SVG) -->
-    <section class="card">
-      <h2>Decision Checkpoints & Gates</h2>
-      <p>
-        These <em>lightweight gates</em> keep teams aligned without slowing delivery. Each gate records decisions and references
-        a brief artifact (model card, risk checklist, evaluation report).
-      </p>
-      <div class="svg-wrap">
-        <!-- Inline SVG flow diagram -->
-        <svg viewBox="0 0 880 240" width="100%" height="auto" aria-label="Decision checkpoints">
-          <defs>
-            <linearGradient id="b" x1="0" x2="1">
-              <stop offset="0%" stop-color="#d8ebff"/>
-              <stop offset="100%" stop-color="#f5faff"/>
-            </linearGradient>
-            <style>
-              .box{fill:url(#b);stroke:#c9def5;stroke-width:1.2}
-              .txt{font: 14px -apple-system, Segoe UI, Roboto, Helvetica, Arial; fill:#17324d}
-              .sub{font: 12px -apple-system, Segoe UI, Roboto, Helvetica, Arial; fill:#4c6a88}
-              .arrow{stroke:#2276e3;stroke-width:2;marker-end:url(#m)}
-            </style>
-            <marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#2276e3"/>
-            </marker>
-          </defs>
-
-          <!-- Boxes -->
-          <rect class="box" x="20"  y="40" width="160" height="90" rx="10"/>
-          <text class="txt" x="100" y="72" text-anchor="middle">Frame</text>
-          <text class="sub" x="100" y="94" text-anchor="middle">Problem + KPI</text>
-
-          <rect class="box" x="210" y="40" width="180" height="90" rx="10"/>
-          <text class="txt" x="300" y="72" text-anchor="middle">Data & Quality</text>
-          <text class="sub" x="300" y="94" text-anchor="middle">Lineage • Bias • Gaps</text>
-
-          <rect class="box" x="420" y="40" width="160" height="90" rx="10"/>
-          <text class="txt" x="500" y="72" text-anchor="middle">Model</text>
-          <text class="sub" x="500" y="94" text-anchor="middle">Eval & Thresholds</text>
-
-          <rect class="box" x="610" y="40" width="120" height="90" rx="10"/>
-          <text class="txt" x="670" y="72" text-anchor="middle">Deploy</text>
-          <text class="sub" x="670" y="94" text-anchor="middle">Rollout Plan</text>
-
-          <rect class="box" x="760" y="40" width="100" height="90" rx="10"/>
-          <text class="txt" x="810" y="72" text-anchor="middle">Monitor</text>
-          <text class="sub" x="810" y="94" text-anchor="middle">Drift • Incidents</text>
-
-          <!-- Arrows -->
-          <line class="arrow" x1="180" y1="85" x2="210" y2="85"/>
-          <line class="arrow" x1="390" y1="85" x2="420" y2="85"/>
-          <line class="arrow" x1="580" y1="85" x2="610" y2="85"/>
-          <line class="arrow" x1="730" y1="85" x2="760" y2="85"/>
-        </svg>
-      </div>
-      <ul>
-        <li><strong>Gate 1 (Frame):</strong> agreement on problem, success KPI, guardrails.</li>
-        <li><strong>Gate 2 (Data):</strong> quality checks, fairness risks, remediation plan.</li>
-        <li><strong>Gate 3 (Model):</strong> evaluation report + approved operating thresholds.</li>
-        <li><strong>Gate 4 (Deploy):</strong> rollout plan, fallback, human-in-the-loop.</li>
-        <li><strong>Gate 5 (Monitor):</strong> drift alerts, incident playbook, review cadence.</li>
-      </ul>
-    </section>
-
-    <!-- EXTRA DIAGRAM 2: MODEL CARD SKELETON (INLINE SVG) -->
-    <section class="card">
-      <h2>Model Card (One-Page Skeleton)</h2>
-      <p class="muted">A shared one-pager improves understanding and accountability. Fill it during development, finalize at deployment, review post-launch.</p>
-      <div class="svg-wrap">
-        <svg viewBox="0 0 860 420" width="100%" height="auto" aria-label="Model card layout">
-          <style>
-            .box{fill:#ffffff;stroke:#c9def5;stroke-width:1.2}
-            .head{fill:#eef6ff;stroke:#c9def5;stroke-width:1.2}
-            .title{font:16px Segoe UI, Roboto, Helvetica, Arial; fill:#0f4b9b; font-weight:700}
-            .lbl{font:13px Segoe UI, Roboto, Helvetica, Arial; fill:#17324d}
-            .mut{font:12px Segoe UI, Roboto, Helvetica, Arial; fill:#4c6a88}
-          </style>
-          <rect class="head" x="20" y="20" width="820" height="50" rx="10"/>
-          <text class="title" x="30" y="50">Model Card — Project / Version / Date</text>
-
-          <rect class="box" x="20" y="90" width="530" height="80" rx="10"/>
-          <text class="lbl" x="30" y="115">Intended Use</text>
-          <text class="mut" x="30" y="135">Who, what decision, expected benefit, boundaries.</text>
-
-          <rect class="box" x="570" y="90" width="270" height="80" rx="10"/>
-          <text class="lbl" x="580" y="115">Data</text>
-          <text class="mut" x="580" y="135">Source, sampling, known gaps, lineage.</text>
-
-          <rect class="box" x="20" y="190" width="380" height="90" rx="10"/>
-          <text class="lbl" x="30" y="215">Performance</text>
-          <text class="mut" x="30" y="235">Metric(s), threshold(s), stress tests.</text>
-
-          <rect class="box" x="420" y="190" width="420" height="90" rx="10"/>
-          <text class="lbl" x="430" y="215">Fairness & Risk</text>
-          <text class="mut" x="430" y="235">Bias checks, misuse, human-in-the-loop.</text>
-
-          <rect class="box" x="20" y="300" width="550" height="90" rx="10"/>
-          <text class="lbl" x="30" y="325">Monitoring</text>
-          <text class="mut" x="30" y="345">Drift signals, alerting, retrain cadence, incident log.</text>
-
-          <rect class="box" x="590" y="300" width="250" height="90" rx="10"/>
-          <text class="lbl" x="600" y="325">Contacts</text>
-          <text class="mut" x="600" y="345">Owners, approvers, date last reviewed.</text>
-        </svg>
-      </div>
-    </section>
-
-    <!-- SUCCESS METRICS & EVALUATION -->
-    <section class="card">
-      <h2>Success Metrics & Evaluation</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Area</th><th>Measure</th><th>Target</th><th>Evidence</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Governance Adoption</td>
-            <td>% projects using model card + checklist</td>
-            <td>≥ 80% / quarter</td>
-            <td>Repository of signed cards; audit list</td>
-          </tr>
-          <tr>
-            <td>Stakeholder Clarity</td>
-            <td>Executive brief comprehension survey</td>
-            <td>+30% vs baseline</td>
-            <td>Pre/post survey results</td>
-          </tr>
-          <tr>
-            <td>Model Reliability</td>
-            <td>Drift alerts acknowledged & acted</td>
-            <td>100% alerts triaged; MTTR ↓</td>
-            <td>Monitoring logs; incident postmortems</td>
-          </tr>
-          <tr>
-            <td>Delivery Efficiency</td>
-            <td>Lead time to insight</td>
-            <td>Decrease month-over-month</td>
-            <td>Project timeline tracker</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- IMPLEMENTATION PLAYBOOK -->
-    <section class="card">
-      <h2>Implementation Playbook</h2>
-      <div class="grid grid-2">
-        <div>
-          <h3>Short-Term (0–6 months)</h3>
-          <ul>
-            <li>Publish model card + ethical checklist templates.</li>
-            <li>Brown-bag sessions for teams; sample completed cards.</li>
-            <li>Dashboards for evaluation & drift signals.</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Mid-Term (6–12 months)</h3>
-          <ul>
-            <li>Run 2–3 pilots using the framework end-to-end.</li>
-            <li>Integrate gates into SDLC (pull-request template, CI checks).</li>
-            <li>Formalize incident response playbook for models.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="grid grid-2">
-        <div>
-          <h3>Long-Term (12+ months)</h3>
-          <ul>
-            <li>Review board for high-impact models.</li>
-            <li>Mentorship pipeline; internal community of practice.</li>
-            <li>Annual refresh of templates & training content.</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Risk Controls (At a Glance)</h3>
-          <ul>
-            <li>Data quality SLOs & lineage records.</li>
-            <li>Thresholds tied to user harm scenarios.</li>
-            <li>Human-in-the-loop on critical outcomes.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ / CLARIFICATIONS -->
-    <section class="card">
-      <h2>FAQ</h2>
-      <h3>How is this different from generic project management?</h3>
-      <p>It’s tailored to <em>AI risks and evidence</em>: model cards, drift monitoring, fairness checks, and explicit operating thresholds.</p>
-      <h3>Will this slow teams down?</h3>
-      <p>The artifacts are <em>one-page</em>; gates are brief. In practice, they reduce rework and speed up approvals.</p>
-      <h3>How do we start?</h3>
-      <p>Adopt the templates, pick two pilot projects, and schedule 30-minute gate reviews with clear owners.</p>
-    </section>
-
-    <footer>
-      © <span id="y"></span> Shiyana • Artifact 5 — AI/ML Leadership Framework
-    </footer>
+    <footer>© <span id="y"></span> Shiyana • Artifact 5 — AI/ML Leadership Framework</footer>
   </div>
+
   <script>
+    // Set year
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Tabs logic with hash support
+    const tabs = Array.from(document.querySelectorAll('.tab-btn'));
+    const panes = Array.from(document.querySelectorAll('main [role="tabpanel"]'));
+
+    function showTab(id){
+      panes.forEach(p => p.hidden = (p.id !== id));
+      tabs.forEach(b => b.setAttribute('aria-selected', b.dataset.tab === id));
+      if(location.hash.replace('#','') !== id){
+        history.replaceState(null,'','#'+id);
+      }
+      // focus heading for accessibility
+      const firstHeading = document.querySelector('#'+id+' h2');
+      if(firstHeading){ firstHeading.setAttribute('tabindex','-1'); firstHeading.focus({preventScroll:true}); }
+    }
+
+    tabs.forEach(btn => btn.addEventListener('click', () => showTab(btn.dataset.tab)));
+
+    // Init: honor hash or default to 'overview'
+    const start = location.hash ? location.hash.replace('#','') : 'overview';
+    showTab(start);
+
+    // Navigate on back/forward
+    window.addEventListener('hashchange', ()=>{
+      const id = location.hash.replace('#','') || 'overview';
+      showTab(id);
+    });
   </script>
 </body>
 </html>
