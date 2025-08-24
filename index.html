@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Machine Learning vs Deep Learning — Digits Classification</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Single-file portfolio page comparing classic ML and a tiny CNN on sklearn Digits, with GitHub-ready code blocks and copy buttons." />
+  <style>
+    :root{
+      --bg:#0f1220;
+      --panel:#161a2e;
+      --panel-2:#1b2040;
+      --text:#e7e9f1;
+      --muted:#b6b9c9;
+      --accent:#6ee7ff;
+      --accent-2:#9b8cff;
+      --ok:#7bf4b8;
+      --warn:#ffd479;
+      --danger:#ff7a8a;
+      --code:#0b0e1a;
+      --border:rgba(255,255,255,.08);
+      --radius:14px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 100% -10%, rgba(111, 134, 255, .25), transparent 60%),
+                  radial-gradient(800px 500px at -20% 10%, rgba(110, 231, 255, .2), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    .wrap{max-width:1080px;margin:0 auto;padding:28px 18px 80px}
+    header.hero{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0));
+      border:1px solid var(--border);
+      border-radius: calc(var(--radius) + 4px);
+      box-shadow: var(--shadow);
+      padding:28px;
+      position:relative;
+      overflow:hidden;
+    }
+    header.hero:before{
+      content:"";
+      position:absolute; inset:-40% -10% auto auto; height:300px; width:300px;
+      filter: blur(70px);
+      background: conic-gradient(from 180deg at 50% 50%, var(--accent), var(--accent-2), var(--ok));
+      opacity:.15; transform: rotate(25deg);
+    }
+    .kicker{letter-spacing:.12em; text-transform:uppercase; font-weight:700; color:var(--accent); font-size:.85rem}
+    h1{margin:.4rem 0 0; font-size: clamp(1.6rem, 2.6vw + 1rem, 2.6rem); line-height:1.15}
+    p.lede{color:var(--muted); font-size:1.05rem; max-width:72ch}
+    .btns{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    .btn{
+      appearance:none; border:1px solid var(--border); background:linear-gradient(180deg, var(--panel), var(--panel-2));
+      color:var(--text); padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:600;
+      transition:.2s transform, .2s border-color, .2s background;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.18)}
+    .grid{display:grid; gap:16px; grid-template-columns: repeat(12, 1fr)}
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+    }
+    h2{font-size:1.35rem;margin:8px 0 10px}
+    h3{font-size:1.05rem;margin:14px 0 8px;color:var(--muted)}
+    .col-12{grid-column: span 12}
+    .col-6{grid-column: span 12}
+    @media(min-width:900px){ .col-6{grid-column: span 6} }
+    code, pre{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+    pre{
+      background: var(--code);
+      border:1px solid var(--border);
+      border-radius: 12px;
+      padding:14px;
+      overflow:auto;
+      position:relative;
+      margin:10px 0 0;
+    }
+    .codebar{
+      display:flex; justify-content:space-between; align-items:center;
+      background: linear-gradient(180deg, #0d1020, #0a0d1a);
+      border:1px solid var(--border);
+      border-bottom:none;
+      border-radius:12px 12px 0 0;
+      padding:10px 12px;
+    }
+    .file{font-weight:700}
+    .actions{display:flex; gap:8px}
+    .tiny{
+      font-size:.8rem; padding:6px 10px; border-radius:10px; border:1px solid var(--border);
+      background:linear-gradient(180deg, var(--panel), var(--panel-2));
+      color:var(--text); cursor:pointer;
+    }
+    details{
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+      border:1px solid var(--border); border-radius:12px; padding:12px 14px; margin:12px 0 0;
+    }
+    details > summary{cursor:pointer; font-weight:700}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--border); background: linear-gradient(180deg, var(--panel), var(--panel-2)); color:var(--text);
+      font-size:.85rem; margin-right:8px;
+    }
+    .muted{color:var(--muted)}
+    footer{
+      margin-top:36px; color:var(--muted); font-size:.95rem; text-align:center;
+    }
+    .kbd{font-family: inherit; border:1px solid var(--border); background:rgba(255,255,255,.04);
+      padding:.1rem .4rem; border-radius:6px; font-size:.9em}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="kicker">Portfolio • Code Drop</div>
+      <h1>Machine Learning vs Deep Learning — Digits Classification</h1>
+      <p class="lede">
+        A single-file portfolio page with GitHub-ready code showing a fair comparison between
+        classic ML (Logistic Regression / Random Forest) and a tiny CNN (Keras) on the
+        <span class="kbd">sklearn</span> Digits dataset (8×8 grayscale).
+        Includes training scripts, metrics, confusion matrices, and a summary tool.
+      </p>
+      <div class="btns">
+        <button class="btn" id="expandAll">Expand All Files</button>
+        <button class="btn" id="collapseAll">Collapse All Files</button>
+      </div>
+    </header>
+
+    <section class="grid" style="margin-top:18px">
+      <article class="panel col-12">
+        <h2>Overview</h2>
+        <p>
+          This demo keeps the comparison clean and reproducible:
+        </p>
+        <ul class="muted">
+          <li>Same dataset and stratified train/test split</li>
+          <li>Consistent artifacts (reports, confusion matrices) saved to <strong>out/</strong></li>
+          <li>One-file-per-task scripts with simple CLI flags</li>
+        </ul>
+        <div>
+          <span class="pill">Python</span>
+          <span class="pill">scikit-learn</span>
+          <span class="pill">TensorFlow / Keras</span>
+          <span class="pill">matplotlib</span>
+        </div>
+      </article>
+
+      <article class="panel col-6">
+        <h2>Quickstart</h2>
+        <pre><code># (optional) create and activate a virtual environment
+python -m venv .venv
+# Windows: .venv\Scripts\activate
+# Mac/Linux:
+source .venv/bin/activate
+
+pip install -r requirements.txt
+
+# Train & evaluate classic ML
+python src/train_ml.py --model logistic
+# or
+python src/train_ml.py --model random_forest
+
+# Train & evaluate tiny CNN
+python src/train_dl.py --epochs 15 --batch-size 64
+
+# Compare results
+python src/compare.py
+</code></pre>
+      </article>
+
+      <article class="panel col-6">
+        <h2>Artifacts (written to <code>out/</code>)</h2>
+        <ul class="muted">
+          <li><code>ml_confusion_matrix.png</code>, <code>dl_confusion_matrix.png</code></li>
+          <li><code>dl_training_curve.png</code></li>
+          <li><code>ml_report.txt</code>, <code>dl_report.txt</code></li>
+          <li><code>ml_summary.json</code>, <code>dl_summary.json</code>, <code>summary.json</code></li>
+          <li><code>dl_model.keras</code> (saved model)</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- FILE: requirements.txt -->
+    <section class="panel" id="reqs">
+      <div class="codebar">
+        <div class="file">requirements.txt</div>
+        <div class="actions">
+          <button class="tiny" data-copy="reqs-code">Copy</button>
+        </div>
+      </div>
+      <pre id="reqs-code"><code>numpy&gt;=1.24
+scikit-learn&gt;=1.3
+matplotlib&gt;=3.7
+tensorflow&gt;=2.12
+</code></pre>
+    </section>
+
+    <!-- FILE: src/utils.py -->
+    <section class="panel" id="utils">
+      <div class="codebar">
+        <div class="file">src/utils.py</div>
+        <div class="actions">
+          <button class="tiny" data-copy="utils-code">Copy</button>
+        </div>
+      </div>
+      <pre id="utils-code"><code>from pathlib import Path
+import json
+import matplotlib.pyplot as plt
+from sklearn.metrics import classification_report, confusion_matrix
+
+def save_confusion_matrix(y_true, y_pred, out_path):
+    cm = confusion_matrix(y_true, y_pred)
+    fig = plt.figure(figsize=(5, 4))
+    ax = fig.add_subplot(111)
+    im = ax.imshow(cm, aspect='auto')
+    ax.set_title('Confusion Matrix')
+    ax.set_xlabel('Predicted')
+    ax.set_ylabel('True')
+    for i in range(cm.shape[0]):
+        for j in range(cm.shape[1]):
+            ax.text(j, i, str(cm[i, j]), ha="center", va="center")
+    fig.colorbar(im)
+    fig.tight_layout()
+    fig.savefig(out_path, bbox_inches="tight")
+    plt.close(fig)
+
+def save_classification_report(y_true, y_pred, out_path):
+    report = classification_report(y_true, y_pred, digits=4)
+    Path(out_path).write_text(report, encoding="utf-8")
+    return report
+
+def save_history_plot(history, out_path, metric='accuracy'):
+    fig = plt.figure(figsize=(6, 4))
+    ax = fig.add_subplot(111)
+    ax.plot(history.history[metric], label=f'train_{metric}')
+    if f'val_{metric}' in history.history:
+        ax.plot(history.history[f'val_{metric}'], label=f'val_{metric}')
+    ax.set_title('Training Curve')
+    ax.set_xlabel('Epoch')
+    ax.set_ylabel(metric.capitalize())
+    ax.legend()
+    fig.tight_layout()
+    fig.savefig(out_path, bbox_inches="tight")
+    plt.close(fig)
+
+def dump_summary(path, **kwargs):
+    Path(path).write_text(json.dumps(kwargs, indent=2), encoding='utf-8')
+</code></pre>
+    </section>
+
+    <!-- FILE: src/train_ml.py -->
+    <section class="panel" id="ml">
+      <div class="codebar">
+        <div class="file">src/train_ml.py</div>
+        <div class="actions">
+          <button class="tiny" data-copy="ml-code">Copy</button>
+        </div>
+      </div>
+      <pre id="ml-code"><code>import argparse
+from pathlib import Path
+
+from sklearn.datasets import load_digits
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import accuracy_score
+
+from utils import save_confusion_matrix, save_classification_report, dump_summary
+
+def main(model_name: str, test_size: float, random_state: int, out_dir: str):
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+
+    digits = load_digits()
+    X = digits.data
+    y = digits.target
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=test_size, random_state=random_state, stratify=y
+    )
+
+    if model_name == 'logistic':
+        clf = Pipeline([
+            ('scaler', StandardScaler()),
+            ('logreg', LogisticRegression(max_iter=2000, multi_class='auto'))
+        ])
+    elif model_name == 'random_forest':
+        clf = RandomForestClassifier(n_estimators=300, random_state=random_state, n_jobs=-1)
+    else:
+        raise ValueError("model must be 'logistic' or 'random_forest'")
+
+    clf.fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
+    acc = accuracy_score(y_test, y_pred)
+
+    save_confusion_matrix(y_test, y_pred, out / 'ml_confusion_matrix.png')
+    report = save_classification_report(y_test, y_pred, out / 'ml_report.txt')
+    dump_summary(out / 'ml_summary.json', model=model_name, accuracy=acc)
+
+    print(f"[ML] Model: {model_name} | Accuracy: {acc:.4f}")
+    print(report)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Train and evaluate classic ML on sklearn Digits.")
+    parser.add_argument('--model', type=str, default='logistic', choices=['logistic', 'random_forest'])
+    parser.add_argument('--test-size', type=float, default=0.2)
+    parser.add_argument('--random-state', type=int, default=42)
+    parser.add_argument('--out-dir', type=str, default='out')
+    args = parser.parse_args()
+    main(args.model, args.test_size, args.random_state, args.out_dir)
+</code></pre>
+    </section>
+
+    <!-- FILE: src/train_dl.py -->
+    <section class="panel" id="dl">
+      <div class="codebar">
+        <div class="file">src/train_dl.py</div>
+        <div class="actions">
+          <button class="tiny" data-copy="dl-code">Copy</button>
+        </div>
+      </div>
+      <pre id="dl-code"><code>import argparse
+from pathlib import Path
+
+import numpy as np
+from sklearn.datasets import load_digits
+from sklearn.model_selection import train_test_split
+import tensorflow as tf
+from tensorflow import keras
+from sklearn.metrics import accuracy_score
+
+from utils import (
+    save_confusion_matrix,
+    save_classification_report,
+    save_history_plot,
+    dump_summary,
+)
+
+def build_cnn(input_shape=(8, 8, 1), num_classes=10):
+    model = keras.Sequential([
+        keras.layers.Input(shape=input_shape),
+        keras.layers.Conv2D(16, (3, 3), activation='relu', padding='same'),
+        keras.layers.MaxPooling2D(),
+        keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same'),
+        keras.layers.Flatten(),
+        keras.layers.Dense(64, activation='relu'),
+        keras.layers.Dense(num_classes, activation='softmax')
+    ])
+    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+    return model
+
+def main(epochs: int, batch_size: int, test_size: float, random_state: int, out_dir: str):
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+
+    tf.keras.utils.set_random_seed(random_state)
+
+    digits = load_digits()
+    X = digits.images.astype('float32')
+    y = digits.target.astype('int64')
+
+    X = X / X.max()
+    X = np.expand_dims(X, -1)
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=test_size, random_state=random_state, stratify=y
+    )
+
+    model = build_cnn(input_shape=(8, 8, 1), num_classes=10)
+    history = model.fit(
+        X_train, y_train,
+        validation_split=0.15,
+        epochs=epochs,
+        batch_size=batch_size,
+        verbose=0
+    )
+
+    y_pred_probs = model.predict(X_test, verbose=0)
+    y_pred = np.argmax(y_pred_probs, axis=1)
+    acc = accuracy_score(y_test, y_pred)
+
+    save_confusion_matrix(y_test, y_pred, out / 'dl_confusion_matrix.png')
+    save_history_plot(history, out / 'dl_training_curve.png', metric='accuracy')
+    report = save_classification_report(y_test, y_pred, out / 'dl_report.txt')
+
+    model.save(out / 'dl_model.keras')
+    dump_summary(out / 'dl_summary.json', model='tiny_cnn', accuracy=acc)
+
+    print(f"[DL] Tiny CNN | Accuracy: {acc:.4f}")
+    print(report)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Train and evaluate a tiny CNN on sklearn Digits.")
+    parser.add_argument('--epochs', type=int, default=15)
+    parser.add_argument('--batch-size', type=int, default=64)
+    parser.add_argument('--test-size', type=float, default=0.2)
+    parser.add_argument('--random-state', type=int, default=42)
+    parser.add_argument('--out-dir', type=str, default='out')
+    args = parser.parse_args()
+    main(args.epochs, args.batch_size, args.test_size, args.random_state, args.out_dir)
+</code></pre>
+    </section>
+
+    <!-- FILE: src/compare.py -->
+    <section class="panel" id="compare">
+      <div class="codebar">
+        <div class="file">src/compare.py</div>
+        <div class="actions">
+          <button class="tiny" data-copy="compare-code">Copy</button>
+        </div>
+      </div>
+      <pre id="compare-code"><code>from pathlib import Path
+import json
+
+def read_json(path):
+    if Path(path).exists():
+        return json.loads(Path(path).read_text(encoding='utf-8'))
+    return {}
+
+def main():
+    out = Path('out')
+    ml = read_json(out / 'ml_summary.json')
+    dl = read_json(out / 'dl_summary.json')
+
+    print("=== Summary (ML vs DL) ===")
+    if ml:
+        print(f"ML   [{ml.get('model','?')}]: accuracy={ml.get('accuracy','?')}")
+    else:
+        print("ML   summary not found. Run: python src/train_ml.py")
+
+    if dl:
+        print(f"DL   [tiny_cnn]: accuracy={dl.get('accuracy','?')}")
+    else:
+        print("DL   summary not found. Run: python src/train_dl.py")
+
+    summary = {'ml': ml, 'dl': dl}
+    (out / 'summary.json').write_text(json.dumps(summary, indent=2), encoding='utf-8')
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+    </section>
+
+    <!-- README snippet -->
+    <section class="panel" id="readme">
+      <div class="codebar">
+        <div class="file">README.md (snippet)</div>
+        <div class="actions">
+          <button class="tiny" data-copy="readme-code">Copy</button>
+        </div>
+      </div>
+      <pre id="readme-code"><code># Machine Learning vs Deep Learning — Digits Classification
+
+- Classic ML: Logistic Regression / Random Forest
+- Deep Learning: tiny CNN with Keras
+- Dataset: sklearn Digits (8×8 grayscale)
+- Outputs: confusion matrices, reports, training curve, summaries to out/
+</code></pre>
+    </section>
+
+    <footer>
+      Tip: Click <span class="kbd">Copy</span> on each file and paste into your project folders.
+      Use <span class="kbd">python src/train_ml.py</span> and <span class="kbd">python src/train_dl.py</span> to run.
+    </footer>
+  </div>
+
+  <script>
+    // Copy buttons
+    document.querySelectorAll("[data-copy]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const id = btn.getAttribute("data-copy");
+        const el = document.getElementById(id);
+        if(!el) return;
+        const txt = el.innerText;
+        navigator.clipboard.writeText(txt).then(()=>{
+          const old = btn.textContent;
+          btn.textContent = "Copied!";
+          setTimeout(()=>btn.textContent = old, 1200);
+        });
+      });
+    });
+
+    // Expand / Collapse all details (if any used)
+    const expandAll = document.getElementById("expandAll");
+    const collapseAll = document.getElementById("collapseAll");
+    expandAll?.addEventListener("click", ()=> {
+      document.querySelectorAll("details").forEach(d => d.open = true);
+    });
+    collapseAll?.addEventListener("click", ()=> {
+      document.querySelectorAll("details").forEach(d => d.open = false);
+    });
+  </script>
+</body>
+</html>
